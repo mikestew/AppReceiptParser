@@ -1,0 +1,2 @@
+dictionaryWithAppStoreReceipt	ReceiptParser.h	/^- (NSDictionary *)dictionaryWithAppStoreReceipt:(N/
+property	AppStoreReceiptAppDelegate.h	/^@property (assign) IBOutlet NSWindow *window;$/
