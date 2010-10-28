@@ -27,8 +27,6 @@ NSString *kReceiptHash = @"Hash";
 // https://devforums.apple.com/message/317799
 // Add -lcrypto to "Other Linker Flags" in project build settings
 - (NSDictionary *)dictionaryWithAppStoreReceipt:(NSString *)path {
-
-
     enum ATTRIBUTES {
         ATTR_START = 1,
         BUNDLE_ID,
@@ -173,10 +171,17 @@ NSString *kReceiptHash = @"Hash";
 	// Perform the following tests, in this order:
 	// 
 	// If there is no receipt, verification fails.
+	// 
 	// If the receipt is not properly signed by Apple, verification fails.
-	// If the bundle identifier in the receipt does not match the value for CFBundleIdentifier in the Info.plist file, verification fails.
-	// If the version identifier string in the receipt does not match the value for CFBundleShortVersionString in the Info.plist file, verification fails.
-	// Concatenate the bytes of the computer’s GUID, the opaque value (the attribute of type 4), and the bundle identifier from the receipt. 
+	// 
+	// If the bundle identifier in the receipt does not match the value for CFBundleIdentifier in the Info.plist file,
+	// verification fails.
+	// 
+	// If the version identifier string in the receipt does not match the value for CFBundleShortVersionString in 
+	// the Info.plist file, verification fails.
+	// 
+	// Concatenate the bytes of the computer’s GUID, the opaque value (the attribute of type 4), and the 
+	// bundle identifier from the receipt. 
 	// Compute the SHA-1 hash. If the result does not match the hash in the receipt, verification fails.
 	// If all of the above checks pass, verification passes.
 	//
@@ -199,9 +204,10 @@ NSString *kReceiptHash = @"Hash";
 	SHA1([input bytes], [input length], [hash mutableBytes]);
 	
 	// TODO: Is the bundle idenifier the same as the executing application?
+	// When using the sample receipt, it would fail unless the identifier were modified to "com.example.SampleApp"
 	// TODO: Is the version string the same as the executing application?
+	// Same thing here, unless the version is coincidentally "1.0.2"
 	if ([hash isEqualToData:[receipt objectForKey:kReceiptHash]]) {
-		// Supergreen
 		return YES;
 	}
 	else {

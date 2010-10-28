@@ -1,0 +1,19 @@
+*.o *.lo *.la #*# .*.rej *.rej .*~ *~ .#* .DS_Store build *.nib *.so *.pbxuser *.mode* *.perspective*
+# xcode noise
+*.mode1v3
+build/*
+*.pyc 
+*~.nib/ 
+*.pbxuser 
+*.perspective 
+*.perspectivev3
+~*.xls*
+*.swp
+mikestew.pbxuser
+
+# old skool
+.svn
+
+# osx noise
+.DS_Store
+profile

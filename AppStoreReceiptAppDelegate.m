@@ -18,8 +18,13 @@
 }
 
 - (IBAction) validateReciept: (id) sender {
+	// Get the path to the receipt out of the app bundle, which gets 
+	// passed to a couple of methods.
 	NSBundle *appBundle = [NSBundle mainBundle];
 	NSString *pathToReceipt = [appBundle pathForResource:@"receipt" ofType:nil];
+	
+	// ReceiptParser does the heavy-lifting. Get a dictionary of values from
+	// the receipt, then go through the checks for validity (see comments in receiptIsValid:pathToReceipt)
 	ReceiptParser *parser = [[ReceiptParser alloc] init];
 	NSDictionary *receipt = [parser dictionaryWithAppStoreReceipt: pathToReceipt];
 	if ([parser receiptIsValid:pathToReceipt]) {
@@ -28,6 +33,7 @@
 	else {
 		[validationResult setStringValue:@"Receipt is invalid. Halt further execution."];
 	}
+	[parser release];
 	[bundleIdentifier setStringValue:[receipt valueForKey:@"BundleIdentifier"]];
 	[appVersion setStringValue:[receipt valueForKey:@"Version"]];
 }
